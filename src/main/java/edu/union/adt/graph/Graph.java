@@ -1,4 +1,5 @@
 package edu.union.adt.graph;
+import java.util.*;
 
 /**
  * A graph that establishes connections (edges) between objects of
@@ -18,11 +19,15 @@ package edu.union.adt.graph;
  */
 public class Graph<V>
 {
+
+    private Map < V, List<V>> edges;
+
     /**
      * Create an empty graph.
      */
     public Graph() 
     {
+         edges = new HashMap <V, List<V>>();
     }
 
     /**
@@ -30,7 +35,7 @@ public class Graph<V>
      */
     public int numVertices()
     {
-        return 0;
+        return edges.size();
     }
 
     /**
@@ -51,8 +56,14 @@ public class Graph<V>
      */
     public int degree(V vertex)
     {
-        return 0;
+        if(edges.isEmpty()){
+            throw new RuntimeException("originalException");
+        }
+        else{
+        return edges.get(vertex).size();
     }
+    }
+    
 
     /**
      * Adds a directed edge between two vertices.  If there is already an edge
@@ -65,7 +76,18 @@ public class Graph<V>
      */
     public void addEdge(V from, V to)
     {
-    }
+        if(!edges.containsKey(from)){
+            addVertex(from);
+        }
+        if(!edges.containsKey(to)){
+            addVertex(to);
+        }
+        //if(edges.containsKey(from) && edges.containsKey(to)){
+        edges.get(from).add(to);
+        //}
+        
+
+        }
 
     /**
      * Adds a vertex to the graph.  If the vertex already exists in
@@ -76,6 +98,11 @@ public class Graph<V>
      */
     public void addVertex(V vertex)
     {
+       if(edges.containsKey(vertex)) return;
+        else
+        {
+        edges.put(vertex, new ArrayList<V>());
+       }
     }
 
     /**
@@ -101,8 +128,8 @@ public class Graph<V>
      * empty iterator.
      */
     public Iterable<V> adjacentTo(V from)
-    {
-        return null;
+    {   
+        return edges.get(from);
     }
 
     /**
@@ -113,7 +140,7 @@ public class Graph<V>
      */
     public boolean contains(V vertex)
     {
-        return false;
+        return edges.containsKey(vertex);
     }
 
     /**
@@ -129,7 +156,7 @@ public class Graph<V>
      */
     public boolean hasEdge(V from, V to)
     {
-        return false;
+        return edges.containsKey(from) && edges.get(from).contains(to);
     }
 
     /**
@@ -164,6 +191,8 @@ public class Graph<V>
      */
     public String toString()
     {
-        return "";
+        //return System.out.println((String)edges.toString());
+        return "string";
+         
     }
 }
