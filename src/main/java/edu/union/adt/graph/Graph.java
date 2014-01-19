@@ -43,7 +43,7 @@ public class Graph<V>
      */
     public int numEdges()
     {
-        return 0;
+        return edges.values().size();
     }
 
     /**
@@ -111,7 +111,7 @@ public class Graph<V>
      */
     public Iterable<V> getVertices()
     {
-        return null;
+        return edges.values().listIterator();
     }
 
     /**
@@ -157,6 +157,17 @@ public class Graph<V>
     public boolean hasEdge(V from, V to)
     {
         return edges.containsKey(from) && edges.get(from).contains(to);
+    }
+
+
+    /** 
+    *A graph is equal to another graph if and only if they contain the same verticies
+    *as well as the same vertexes
+    *@return returns true if and only if the two graphs are the same
+    */
+    public boolean equals(Object graph){
+
+
     }
 
     /**
