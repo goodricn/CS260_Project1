@@ -192,7 +192,19 @@ public class Graph<V>
     public String toString()
     {
         //return System.out.println((String)edges.toString());
-        return "string";
+        //return "string";
+        
+
+        Collection values = edges.values();
+        values.toArray();
+        Set keys = edges.keySet();
+        keys.toArray();
+
+        String output = values.toString();
+        return output;
+        
+    
+
          
     }
 }
