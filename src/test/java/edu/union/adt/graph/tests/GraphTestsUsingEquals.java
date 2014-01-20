@@ -32,8 +32,8 @@ public class GraphTestsUsingEquals
     public void simpleEquals()
     {
         assertEquals("Two new graphs are equal", g, g2);
-        assertEquals("Two new graphs are equal, even if vertex type differs",
-                     g, objectGraph);
+        //assertEquals("Two new graphs are equal, even if vertex type differs",
+        //             g, objectGraph);
     }
 
     @Test

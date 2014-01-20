@@ -43,8 +43,23 @@ public class Graph<V>
      */
     public int numEdges()
     {
-        return edges.values().size();
+        //Iterator edgesList edges.values().iterator();
+        if(edges.isEmpty()){
+            return 0;
+        }
+        else{
+        boolean exit = false;
+        Iterator vertices = edges.keySet().iterator();
+        V nextKey;
+        int count = 0;
+        while(!exit){
+            nextKey = (V)vertices.next();
+            count += degree(nextKey); 
+            if(vertices.hasNext() == false){exit = true;}
+        }
+        return count;}
     }
+    
 
     /**
      * Gets the number of vertices connected by edges from a given
@@ -82,9 +97,9 @@ public class Graph<V>
         if(!edges.containsKey(to)){
             addVertex(to);
         }
-        //if(edges.containsKey(from) && edges.containsKey(to)){
+        if(!edges.get(from).contains(to)){
         edges.get(from).add(to);
-        //}
+        }
         
 
         }
@@ -111,7 +126,7 @@ public class Graph<V>
      */
     public Iterable<V> getVertices()
     {
-        return edges.values().listIterator();
+        return edges.keySet();
     }
 
     /**
@@ -162,10 +177,13 @@ public class Graph<V>
 
     /** 
     *A graph is equal to another graph if and only if they contain the same verticies
-    *as well as the same vertexes
+    *as well as the same edges
     *@return returns true if and only if the two graphs are the same
     */
-    public boolean equals(Object graph){
+    public boolean equals(Object graphObject){
+
+       Graph graphTest = (Graph)graphObject;
+       return this.edges.equals(graphTest.edges);
 
 
     }
@@ -204,18 +222,16 @@ public class Graph<V>
     {
         //return System.out.println((String)edges.toString());
         //return "string";
-        
+        String output = "";
 
-        Collection values = edges.values();
-        values.toArray();
-        Set keys = edges.keySet();
-        keys.toArray();
-
-        String output = values.toString();
+        for(V v: edges.keySet()){
+            output += v + ":" + edges.get(v) + "\n";
+        }
         return output;
+
+        
         
     
-
-         
     }
+
 }
