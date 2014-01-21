@@ -176,6 +176,7 @@ public class Graph<V>
 
 
     /** 
+    *@param a graph
     *A graph is equal to another graph if and only if they contain the same verticies
     *as well as the same edges
     *@return returns true if and only if the two graphs are the same
