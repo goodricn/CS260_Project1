@@ -4,6 +4,6 @@ public class GraphFactory{
 
 	static public <V> Graph<V> createGraph()
 	{
-		return new HashGraph();
+		return new HashGraph<V>();
 	}
 }
