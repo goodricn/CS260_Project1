@@ -17,48 +17,19 @@ import java.util.*;
  * @author Aaron G. Cass
  * @version 1
  */
-public class Graph<V>
+public interface Graph<V>
 {
 
-    private Map < V, List<V>> edges;
-
-    /**
-     * Create an empty graph.
-     */
-    public Graph() 
-    {
-         edges = new HashMap <V, List<V>>();
-    }
 
     /**
      * @return the number of vertices in the graph.
      */
-    public int numVertices()
-    {
-        return edges.size();
-    }
+    public int numVertices();
 
     /**
      * @return the number of edges in the graph.
      */
-    public int numEdges()
-    {
-        //Iterator edgesList edges.values().iterator();
-        if(edges.isEmpty()){
-            return 0;
-        }
-        else{
-        boolean exit = false;
-        Iterator vertices = edges.keySet().iterator();
-        V nextKey;
-        int count = 0;
-        while(!exit){
-            nextKey = (V)vertices.next();
-            count += degree(nextKey); 
-            if(vertices.hasNext() == false){exit = true;}
-        }
-        return count;}
-    }
+    public int numEdges();
     
 
     /**
@@ -69,15 +40,7 @@ public class Graph<V>
      * @param vertex the vertex whose degree we want.
      * @return the degree of vertex 'vertex'
      */
-    public int degree(V vertex)
-    {
-        if(edges.isEmpty()){
-            throw new RuntimeException("originalException");
-        }
-        else{
-        return edges.get(vertex).size();
-    }
-    }
+    public int degree(V vertex);
     
 
     /**
@@ -89,20 +52,7 @@ public class Graph<V>
      * @param from the source vertex for the added edge
      * @param to the destination vertex for the added edge
      */
-    public void addEdge(V from, V to)
-    {
-        if(!edges.containsKey(from)){
-            addVertex(from);
-        }
-        if(!edges.containsKey(to)){
-            addVertex(to);
-        }
-        if(!edges.get(from).contains(to)){
-        edges.get(from).add(to);
-        }
-        
-
-        }
+    public void addEdge(V from, V to);
 
     /**
      * Adds a vertex to the graph.  If the vertex already exists in
@@ -111,23 +61,13 @@ public class Graph<V>
      *
      * @param vertex the vertex to add
      */
-    public void addVertex(V vertex)
-    {
-       if(edges.containsKey(vertex)) return;
-        else
-        {
-        edges.put(vertex, new ArrayList<V>());
-       }
-    }
+    public void addVertex(V vertex);
 
     /**
      * @return the an iterable collection for the set of vertices of
      * the graph.
      */
-    public Iterable<V> getVertices()
-    {
-        return edges.keySet();
-    }
+    public Iterable<V> getVertices();
 
     /**
      * Gets the vertices adjacent to a given vertex.  A vertex y is
@@ -142,10 +82,7 @@ public class Graph<V>
      * vertex.  If 'from' is not a vertex in the graph, returns an
      * empty iterator.
      */
-    public Iterable<V> adjacentTo(V from)
-    {   
-        return edges.get(from);
-    }
+    public Iterable<V> adjacentTo(V from);
 
     /**
      * Tells whether or not a vertex is in the graph.
@@ -153,10 +90,7 @@ public class Graph<V>
      * @param vertex a vertex
      * @return true iff 'vertex' is a vertex in the graph.
      */
-    public boolean contains(V vertex)
-    {
-        return edges.containsKey(vertex);
-    }
+    public boolean contains(V vertex);
 
     /**
      * Tells whether an edge exists in the graph.
@@ -169,10 +103,7 @@ public class Graph<V>
      * vertices are not vertices in the graph, then there is no edge
      * between them.
      */
-    public boolean hasEdge(V from, V to)
-    {
-        return edges.containsKey(from) && edges.get(from).contains(to);
-    }
+    public boolean hasEdge(V from, V to);
 
 
     /** 
@@ -181,13 +112,7 @@ public class Graph<V>
     *as well as the same edges
     *@return returns true if and only if the two graphs are the same
     */
-    public boolean equals(Object graphObject){
-
-       Graph graphTest = (Graph)graphObject;
-       return this.edges.equals(graphTest.edges);
-
-
-    }
+    public boolean equals(Object graphObject);
 
     /**
      * Gives a string representation of the graph.  The representation
@@ -219,20 +144,6 @@ public class Graph<V>
      *
      * @return the string representation of the graph
      */
-    public String toString()
-    {
-        //return System.out.println((String)edges.toString());
-        //return "string";
-        String output = "";
-
-        for(V v: edges.keySet()){
-            output += v + ":" + edges.get(v) + "\n";
-        }
-        return output;
-
-        
-        
-    
-    }
+    public String toString();
 
 }

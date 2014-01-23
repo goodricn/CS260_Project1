@@ -17,7 +17,7 @@ import java.util.*;
  * @author Aaron G. Cass
  * @version 1
  */
-public class Graph<V>
+public class HashGraph<V> implements Graph<V>
 {
 
     private Map < V, List<V>> edges;
@@ -25,7 +25,7 @@ public class Graph<V>
     /**
      * Create an empty graph.
      */
-    public Graph() 
+    public HashGraph() 
     {
          edges = new HashMap <V, List<V>>();
     }
@@ -183,7 +183,7 @@ public class Graph<V>
     */
     public boolean equals(Object graphObject){
 
-       Graph graphTest = (Graph)graphObject;
+       HashGraph graphTest = (HashGraph)graphObject;
        return this.edges.equals(graphTest.edges);
 
 
