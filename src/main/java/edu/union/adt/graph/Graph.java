@@ -1,5 +1,4 @@
 package edu.union.adt.graph;
-import java.util.*;
 
 /**
  * A graph that establishes connections (edges) between objects of
@@ -19,8 +18,6 @@ import java.util.*;
  */
 public interface Graph<V>
 {
-
-
     /**
      * @return the number of vertices in the graph.
      */
@@ -30,7 +27,6 @@ public interface Graph<V>
      * @return the number of edges in the graph.
      */
     public int numEdges();
-    
 
     /**
      * Gets the number of vertices connected by edges from a given
@@ -41,7 +37,6 @@ public interface Graph<V>
      * @return the degree of vertex 'vertex'
      */
     public int degree(V vertex);
-    
 
     /**
      * Adds a directed edge between two vertices.  If there is already an edge
@@ -105,15 +100,6 @@ public interface Graph<V>
      */
     public boolean hasEdge(V from, V to);
 
-
-    /** 
-    *@param a graph
-    *A graph is equal to another graph if and only if they contain the same verticies
-    *as well as the same edges
-    *@return returns true if and only if the two graphs are the same
-    */
-    public boolean equals(Object graphObject);
-
     /**
      * Gives a string representation of the graph.  The representation
      * is a series of lines, one for each vertex in the graph.  On
@@ -146,4 +132,90 @@ public interface Graph<V>
      */
     public String toString();
 
+    /**
+     * Tells whether the graph is empty.
+     *
+     * @return true iff the graph is empty. A graph is empty if it has
+     * no vertices and no edges.
+     */
+    public boolean isEmpty();
+
+    /**
+     * Removes and vertex from the graph.  Also removes any edges
+     * connecting from the edge or to the edge.
+     *
+     * <p>Postconditions:
+     *
+     * <p>If toRemove was in the graph:
+     * <ul>
+     * <li>numVertices = numVertices' - 1
+     * <li>toRemove is no longer a vertex in the graph
+     * <li>for all vertices v: toRemove is not in adjacentTo(v)
+     * </ul>
+     *
+     * @param toRemove the vertex to remove.
+     */
+    public void removeVertex(V toRemove);
+
+    /**
+     * Removes an edge from the graph.
+     *
+     * <p>Postcondition: If from and to were in the graph and (from,
+     * to) was an edge in the graph, then numEdges = numEdges' - 1
+     */
+    public void removeEdge(V from, V to);
+
+    /**
+     * Tells whether there is a path connecting two given vertices.  A
+     * path exists from vertex A to vertex B iff there exists a
+     * sequence x_1, x_2, ..., x_n where:
+     *
+     * <ul>
+     * <li>x_1 = A
+     * <li>x_n = B
+     * <li>for all i from 1 to n-1, (x_i, x_{i+1}) is an edge in the graph.
+     * </ul>
+     *
+     * @param from the source vertex
+     * @param to the destination vertex
+     * @return true iff there is a path from 'from' to 'to' in the graph.
+     */
+    public boolean hasPath(V from, V to);
+
+    /**
+     * Gets the length of the shortest path connecting two given
+     * vertices.  The length of a path is the number of edges in the
+     * graph.
+     *
+     * <ol> 
+     * <li>If from = to, shortest path has length 0
+     * <li>Otherwise, shortest path length is length of the shortest
+     * possible path connecting from to to.  
+     * </ol>
+     *
+     * @param from the source vertex
+     * @param to the destination vertex
+     * @return the length of the shortest path from 'from' to 'to' in
+     * the graph.  If there is no path, returns Integer.MAX_VALUE
+     */
+    public int pathLength(V from, V to);
+
+    /**
+     * Returns the vertices along the shortest path connecting two
+     * given vertices.  The vertices should be given in the order x_1,
+     * x_2, x_3, ..., x_n, where:
+     *
+     * <ol>
+     * <li>x_1 = from
+     * <li>x_n = to
+     * <li>for all i from 1 to n-1: (x_i, x_{i+1}) is an edge in the graph.
+     * </ol>
+     * 
+     * @param from the source vertex
+     * @param to the destination vertex
+     * @return an Iterable collection of vertices along the shortest
+     * path from 'from' to 'to'.  The Iterable should include the
+     * source and destination vertices.
+     */
+    public Iterable<V> getPath(V from, V to);
 }
