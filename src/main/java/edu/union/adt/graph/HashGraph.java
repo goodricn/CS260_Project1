@@ -292,7 +292,7 @@ public class HashGraph<V> implements Graph<V>
      * @return true iff there is a path from 'from' to 'to' in the graph.
      */
     public boolean hasPath(V from, V to){
-        return true;
+        return false;
     }
 
     /**

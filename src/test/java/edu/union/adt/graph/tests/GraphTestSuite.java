@@ -3,7 +3,7 @@ package edu.union.adt.graph.tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import edu.union.adt.graph.tests.GoodrichGraphTests;
+import edu.union.adt.graph.tests.goodricn.GoodrichGraphTests;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses
