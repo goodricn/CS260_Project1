@@ -244,7 +244,7 @@ public class HashGraph<V> implements Graph<V>
      * no vertices and no edges.
      */
     public boolean isEmpty(){
-        return edges.isEmpty() && edges.keySet().isEmpty();
+        return false;
     }
 
     /**
