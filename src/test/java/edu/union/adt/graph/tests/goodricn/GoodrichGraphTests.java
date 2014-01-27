@@ -78,8 +78,10 @@ public class GoodrichGraphTests
         g.addEdge("foo","bar");
         g.addEdge("bar","end");
         Iterable pathIterable = g.getPath("foo","end");
-        String[] correctPath = new String[g.numVertices()];
-        correctPath = ["foo","bar","end"];
+        List correctPath = new List();
+        correctPath = correctPath.add("foo");
+        correctPath = correctPath.add("bar");
+        correctPath = correctPath.add("end");
         assertEquals("paths are not the same", pathIterable,correctPath);
 
 
