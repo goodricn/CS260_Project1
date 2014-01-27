@@ -1,11 +1,11 @@
 <?xml version="1.1" encoding="UTF-8"?>
-<testsuite name="edu.union.adt.graph.tests.SimpleGraphTests" tests="7" failures="0" errors="0" timestamp="2014-01-26T23:55:05" hostname="nicholass-mbp-2.home" time="0.0070">
+<testsuite name="edu.union.adt.graph.tests.SimpleGraphTests" tests="7" failures="0" errors="0" timestamp="2014-01-26T23:55:54" hostname="nicholass-mbp-2.home" time="0.0080">
   <properties/>
   <testcase name="createNodesAndConnect" classname="edu.union.adt.graph.tests.SimpleGraphTests" time="0.0020"/>
   <testcase name="degree" classname="edu.union.adt.graph.tests.SimpleGraphTests" time="0.0"/>
   <testcase name="addEdge" classname="edu.union.adt.graph.tests.SimpleGraphTests" time="0.0"/>
-  <testcase name="adjacent" classname="edu.union.adt.graph.tests.SimpleGraphTests" time="0.0010"/>
-  <testcase name="string" classname="edu.union.adt.graph.tests.SimpleGraphTests" time="0.0020"/>
+  <testcase name="adjacent" classname="edu.union.adt.graph.tests.SimpleGraphTests" time="0.0"/>
+  <testcase name="string" classname="edu.union.adt.graph.tests.SimpleGraphTests" time="0.0030"/>
   <testcase name="construct" classname="edu.union.adt.graph.tests.SimpleGraphTests" time="0.0"/>
   <testcase name="addVertex" classname="edu.union.adt.graph.tests.SimpleGraphTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
