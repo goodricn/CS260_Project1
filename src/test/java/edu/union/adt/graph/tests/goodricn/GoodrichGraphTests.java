@@ -41,6 +41,7 @@ public class GoodrichGraphTests
     	assertFalse("not empty graph returns empty",g.isEmpty());
         g.removeVertex("foo");
         assertTrue("Empty graph returns not empty after removal",g.isEmpty());
+        assertEquals("Empty graph still has count for vertices", g.numVertices(),0);
     }
 
     @Test 
