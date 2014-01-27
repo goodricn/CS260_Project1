@@ -153,10 +153,14 @@ public class SimpleGraphTests
         verifyNoExtraSpaces(graphString);
         verifyNoExtraColons(graphString);
 
+System.out.print(g.toString());
+            
         verifyEdge(graphString, "A", "A");
         verifyEdge(graphString, "A", "B");
         verifyEdge(graphString, "C", "A");
         verifyEdge(graphString, "C", "B");
+
+
     }
 
     private void verifyNoExtraCommas(String graphString)

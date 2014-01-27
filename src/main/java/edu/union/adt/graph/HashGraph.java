@@ -225,10 +225,18 @@ public class HashGraph<V> implements Graph<V>
         String output = "";
 
         for(V v: edges.keySet()){
+           output += v + ":";
+           //if(edges.get(v).contains(v)){ 
             for(V k: edges.get(v)){
-            output += v + ":" + edges.get(k)+ "," + "\n";
-         }
+             output += edges.get(k);
+        // }
+     }
+            output += "\n";
+
+
         }
+        output = output.replace("[","");
+        output = output.replace("]","");
         return output;
     }
     
