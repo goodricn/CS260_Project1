@@ -47,7 +47,14 @@ public class GoodrichGraphTests
     public void removeVertex()
     {
         g.addVertex("foo");
+        g.addEdge("foo","bar");
+        g.addEdge("zee","foo");
+        g.removeVertex("foo");
         assertFalse("The added vertex was not removed", g.contains("foo"));
+        assertFalse("The related outbound edges were not removed", g.hasEdge("foo","bar"));
+        assertEquals("vertex number does not change", g.numVertices(),1);
+        assertEquals("The related inbound edges were not removed", g.hasEdge("bar","foo"));
+        assertFalse("vertex is still in adjacency list of another vertex", g.adjacentTo("bar"));
     }
 
     @Test
@@ -55,6 +62,7 @@ public class GoodrichGraphTests
         g.addEdge("foo","bar");
         g.removeEdge("foo","bar");
         assertFalse("removed edge is still there", g.hasEdge("foo","bar"));
+        assertEquals("num edges is incorrect",g.numEdges(),0);
     }
 
     @Test
@@ -63,6 +71,9 @@ public class GoodrichGraphTests
         g.addEdge("foo","bar");
         g.addEdge("bar","end");
         assertTrue("there is no path from initial to final", g.hasPath("foo","end"));
+        assertFalse("path is one way", g.hasPath("end","foo"));
+        g.addEdge("foo","foo");
+        assertTrue("there is no path to itself",g.haspath("foo","foo"));
     }
 
     @Test
