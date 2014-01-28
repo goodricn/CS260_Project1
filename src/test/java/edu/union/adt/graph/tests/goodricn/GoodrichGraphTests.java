@@ -55,7 +55,10 @@ public class GoodrichGraphTests
         assertFalse("The related outbound edges were not removed", g.hasEdge("foo","bar"));
         assertEquals("vertex number does not change", g.numVertices(),1);
         assertEquals("The related inbound edges were not removed", g.hasEdge("bar","foo"));
-        //assertFalse("vertex is still in adjacency list of another vertex", g.adjacentTo("bar").contains("foo"));
+        //g.adjacentTo("bar").contains("foo")
+        Iterable adj = g.adjacentTo("bar");
+        Iterator adjac = adj.iterator();
+        assertFalse("vertex is still in adjacency list of another vertex",adjac.hasNext());
     }
 
     @Test
@@ -126,13 +129,35 @@ public class GoodrichGraphTests
         assertEquals("path length to itself returns greater than 0",g.pathLength("a","a"),0);
     }
 
-    @Test public void correctShortestPath(){
+    @Test public void correctShortestPath()
+    {
         g.addEdge("a","b");
         g.addEdge("a","c");
         g.addEdge("b","c");
-        //V correctShortestPath = "c";
-        //V attemptedShortestPath = g.getPath().next();
-       // assertEquals("it is not the correct shortest path", correctShortestPath,attemptedShortestPath);
+        Iterable attemptedShortestPath = g.getPath("a","c");
+        Iterator asp = attemptedShortestPath.iterator();
+        String sp= (String)asp.next();
+       assertTrue("it is not the correct shortest path", sp.contains("c"));
+    }
+
+    @Test public void cycles(){
+        g.addEdge("a","b");
+        g.addEdge("b","a");
+        g.addEdge("a","c");
+        g.addEdge("c","a");
+        g.addEdge("c","b");
+        g.addEdge("b","c");
+        g.addEdge("c","c");
+        g.addEdge("a","a");
+        g.addEdge("b","b");
+        g.addEdge("b","d");
+        assertEquals("length of path is to long should be 1 ",1,g.pathLength("a","a"));
+        assertEquals("length of path is to long should be 1 ",1,g.pathLength("a","b"));
+        assertEquals("length of path is to long should be 1 ",2,g.pathLength("a","d"));
+
+        assertEquals("length of self path should one a->a",1,g.pathLength("a","a"));
+        assertEquals("length of self path should be zero d->d",0, g.pathLength("d","d"));
+
     }
 
 
