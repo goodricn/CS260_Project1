@@ -1,6 +1,0 @@
--classpath '/Users/nicholasgoodrich/Documents/SchoolWork/UnionYear3/Winter/LargeScale/Projects/Project1/build/classes/main:/Users/nicholasgoodrich/Documents/SchoolWork/UnionYear3/Winter/LargeScale/Projects/Project1/build/resources/main'
--d '/Users/nicholasgoodrich/Documents/SchoolWork/UnionYear3/Winter/LargeScale/Projects/Project1/build/docs/javadoc'
--doctitle 'Project1 API'
--quiet 
--windowtitle 'Project1 API'
-'/Users/nicholasgoodrich/Documents/SchoolWork/UnionYear3/Winter/LargeScale/Projects/Project1/src/main/java/edu/union/adt/graph/Graph.java'

@@ -95,10 +95,47 @@ public class GoodrichGraphTests
         correctPath.add("foo");
         correctPath.add("bar");
         correctPath.add("end");
-        assertEquals("paths are not the same", pathIterable,correctPath);
-
-
+        assertEquals("paths are not the same", pathIterable, correctPath);
     }
+
+    @Test public void largeGraphTest()
+    {
+        g.addEdge("a","b");
+        g.addEdge("b","c");
+        g.addEdge("c","d");
+        g.addEdge("d","e");
+        g.addEdge("e","a");
+        g.addEdge("b","b");
+        g.addEdge("d","b");
+        g.addEdge("a","e");
+        assertTrue("there seems to be no path from to e", g.hasPath("a","e"));
+        assertTrue("there seems to be no path to e", g.hasPath("e","a"));
+        assertEquals("path length from a to e is incorrect", g.pathLength("a","e"),4);
+        assertEquals("path length from e to a is incorrect", g.pathLength("e","a"),1);
+        g.removeVertex("b");
+        assertEquals("incorrect number of paths after deleting node b", g.numEdges(),4);
+    }
+
+    @Test public void selfPaths()
+    {
+        g.addEdge("a","b");
+        g.addEdge("a","a");
+        g.addEdge("b","b");
+        g.addEdge("b","a");
+        assertTrue("path to itself returns false",g.hasPath("a","a"));
+        assertEquals("path length to itself returns greater than 0",g.pathLength("a","a"),0);
+    }
+
+    @Test public void correctShortestPath(){
+        g.addEdge("a","b");
+        g.addEdge("a","c");
+        g.addEdge("b","c");
+        //V correctShortestPath = "c";
+        //V attemptedShortestPath = g.getPath().next();
+       // assertEquals("it is not the correct shortest path", correctShortestPath,attemptedShortestPath);
+    }
+
+
 
 
 
