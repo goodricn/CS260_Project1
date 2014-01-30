@@ -252,7 +252,7 @@ public class HashGraph<V> implements Graph<V>
      * no vertices and no edges.
      */
     public boolean isEmpty(){
-        return false;
+        return edges.isEmpty() && edges.values().isEmpty();
     }
 
     /**
@@ -271,8 +271,15 @@ public class HashGraph<V> implements Graph<V>
      * @param toRemove the vertex to remove.
      */
     public void removeVertex(V toRemove){
+        if(this.contains(toRemove)){
+            Iterable<V> adjacentVerts = this.adjacentTo(toRemove);
+            for( V v : edges.keySet()){
+                    edges.get(v).remove(toRemove);
+                }
+            }
+        edges.remove(toRemove);
+        }
 
-    }
 
     /**
      * Removes an edge from the graph.
@@ -281,6 +288,10 @@ public class HashGraph<V> implements Graph<V>
      * to) was an edge in the graph, then numEdges = numEdges' - 1
      */
     public void removeEdge(V from, V to){
+        if(edges.containsKey(from) && edges.containsKey(to)){
+        edges.get(from).remove(to);
+        edges.get(to).remove(from);
+    }
 
     }
 
@@ -300,7 +311,27 @@ public class HashGraph<V> implements Graph<V>
      * @return true iff there is a path from 'from' to 'to' in the graph.
      */
     public boolean hasPath(V from, V to){
-        return false;
+        Queue<V> unchecked = new PriorityQueue<V>();
+        if(from.equals(to)){return true;}
+        else if(!this.contains(from) && !this.contains(to)){return false;}
+        else{
+            unchecked.add(from);
+            while(!unchecked.isEmpty()){
+                if(unchecked.peek().equals(to)){return true;}
+                else{
+                    Iterable<V> vertexList = this.adjacentTo(unchecked.poll());
+                    for(V v : vertexList){
+                        unchecked.add(v);
+                        if(v.equals(to)){return true;}
+                    }
+                }
+            }
+            return false;
+
+        }
+
+
+
     }
 
     /**
@@ -317,11 +348,22 @@ public class HashGraph<V> implements Graph<V>
      * @param from the source vertex
      * @param to the destination vertex
      * @return the length of the shortest path from 'from' to 'to' in
-     * the graph.  If there is no path, returns Integer.MAX_VALUE
+     * the graph.  If there is no path, returns Integer.MAX_VALUE  return Integer.MAX_VALUE;
      */
     public int pathLength(V from, V to){
-        return 0;
+        if(from.equals(to)){
+            return 0;
+        }
+        Iterable<V> path = this.getPath(from,to);
+        int count=0;
+        for(V v: path){
+            count++;
+        }
+        count-=1;
+        return count;
     }
+
+
 
     /**
      * Returns the vertices along the shortest path connecting two
@@ -341,8 +383,54 @@ public class HashGraph<V> implements Graph<V>
      * source and destination vertices.
      */
     public Iterable<V> getPath(V from, V to){
-        return null;
+        List<V> path = new ArrayList<V>();
+        if(!this.contains(from) || !this.contains(to)){
+            return path;
+        }
+        else if(from.equals(to)){
+            path.add(from);
+            return path;
+        }
+        Queue<V> unchecked = new PriorityQueue<V>();
+        Map<V,V> checked = new HashMap<V,V>();
+        unchecked.add(from);
+        boolean exit = true;
+        checked.put(from,null);
+        while(exit && !unchecked.isEmpty()){
+
+            for(V v : this.adjacentTo(unchecked.peek())){
+                if(!checked.keySet().contains(v)){
+                    for(V z : this.adjacentTo(unchecked.peek())){checked.put(z,unchecked.peek());}
+                    if(!unchecked.peek().equals(to)){
+                        unchecked.poll();
+                        unchecked.add(v);
+                    }
+            }
+
+
+            }
+        if(checked.keySet().contains(to)){
+                exit = false;
+            }
+
+            
+        }
+    
+        
+        V node = to;
+        while(!node.equals(from)){
+            path.add(node);
+            node = checked.get(node);
+        }
+        path.add(from);
+        Collections.reverse(path);
+        return path;
+
+
+         
     }
+
+
 
 
 

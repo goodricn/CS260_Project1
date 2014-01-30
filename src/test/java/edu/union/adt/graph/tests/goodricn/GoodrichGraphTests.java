@@ -53,9 +53,8 @@ public class GoodrichGraphTests
         g.removeVertex("foo");
         assertFalse("The added vertex was not removed", g.contains("foo"));
         assertFalse("The related outbound edges were not removed", g.hasEdge("foo","bar"));
-        assertEquals("vertex number does not change", g.numVertices(),1);
-        assertEquals("The related inbound edges were not removed", g.hasEdge("bar","foo"));
-        //g.adjacentTo("bar").contains("foo")
+        assertEquals("vertex number does not change", g.numVertices(),2);
+        assertFalse("The related inbound edges were not removed", g.hasEdge("bar","foo"));
         Iterable adj = g.adjacentTo("bar");
         Iterator adjac = adj.iterator();
         assertFalse("vertex is still in adjacency list of another vertex",adjac.hasNext());
@@ -85,7 +84,7 @@ public class GoodrichGraphTests
     {
         g.addEdge("foo","bar");
         g.addEdge("bar","end");
-        assertEquals("path length of one is incorrect", g.pathLength("foo","bar"),1);
+        assertEquals("path length of one is incorrect", 1, g.pathLength("foo","bar"));
         assertEquals("path length larger than one is incorrect", g.pathLength("foo","end"),2);
     }
 
@@ -95,6 +94,7 @@ public class GoodrichGraphTests
         g.addEdge("bar","end");
         Iterable pathIterable = g.getPath("foo","end");
         List correctPath = new ArrayList();
+        System.out.print(pathIterable.toString());
         correctPath.add("foo");
         correctPath.add("bar");
         correctPath.add("end");
@@ -113,7 +113,7 @@ public class GoodrichGraphTests
         g.addEdge("a","e");
         assertTrue("there seems to be no path from to e", g.hasPath("a","e"));
         assertTrue("there seems to be no path to e", g.hasPath("e","a"));
-        assertEquals("path length from a to e is incorrect", g.pathLength("a","e"),4);
+        assertEquals("path length from a to e is incorrect", g.pathLength("a","e"),1);
         assertEquals("path length from e to a is incorrect", g.pathLength("e","a"),1);
         g.removeVertex("b");
         assertEquals("incorrect number of paths after deleting node b", g.numEdges(),4);
@@ -136,8 +136,10 @@ public class GoodrichGraphTests
         g.addEdge("b","c");
         Iterable attemptedShortestPath = g.getPath("a","c");
         Iterator asp = attemptedShortestPath.iterator();
-        String sp= (String)asp.next();
-       assertTrue("it is not the correct shortest path", sp.contains("c"));
+        asp.next();
+        String sp= asp.next().toString();
+        assertEquals("it is not the correct shortest path", "c", sp);
+
     }
 
     @Test public void cycles(){
@@ -151,11 +153,9 @@ public class GoodrichGraphTests
         g.addEdge("a","a");
         g.addEdge("b","b");
         g.addEdge("b","d");
-        assertEquals("length of path is to long should be 1 ",1,g.pathLength("a","a"));
-        assertEquals("length of path is to long should be 1 ",1,g.pathLength("a","b"));
-        assertEquals("length of path is to long should be 1 ",2,g.pathLength("a","d"));
-
-        assertEquals("length of self path should one a->a",1,g.pathLength("a","a"));
+        assertEquals("length of path a-a is to long should be 0 ",0,g.pathLength("a","a"));
+        assertEquals("length of path a-b is to long should be 1 ",1,g.pathLength("a","b"));
+        assertEquals("length of self path should one a->a",0,g.pathLength("a","a"));
         assertEquals("length of self path should be zero d->d",0, g.pathLength("d","d"));
 
     }

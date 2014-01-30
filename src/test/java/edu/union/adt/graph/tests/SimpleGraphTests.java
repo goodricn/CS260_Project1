@@ -158,8 +158,7 @@ public class SimpleGraphTests
         verifyEdge(graphString, "A", "B");
         verifyEdge(graphString, "C", "A");
         verifyEdge(graphString, "C", "B");
-
-
+    
     }
 
     private void verifyNoExtraCommas(String graphString)
